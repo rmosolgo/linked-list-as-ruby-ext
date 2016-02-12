@@ -1,0 +1,9 @@
+pkg
+*.so
+*.bundle
+*.swp
+tmp
+*.log
+*.o
+Makefile
+Gemfile.lock

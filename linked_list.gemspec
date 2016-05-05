@@ -12,4 +12,5 @@ Gem::Specification.new do |s|
   s.homepage    = "https://rubygems.org/gems/example"
 
   s.add_development_dependency "rake-compiler"
+  s.add_development_dependency "minitest"
 end

@@ -58,7 +58,7 @@ LinkedList     0.070000   0.000000   0.070000 (  0.072522)
 
 ### Bugs
 
-About 1 in 3 test runs crash during shutdown. It's gotta be something in GC, but I don't understand what it is ...  
+About 1 in 3 test runs crash during GC, but I don't understand why.
 
 ```
 # Running:
@@ -142,3 +142,16 @@ c:0001 p:0000 s:0002 E:001210 (none) [FINISH]
 4   ruby                                0x0000000103e17335 rgengc_check_relation + 69
 5   ???                                 0x00007f97624095a0 0x0 + 140288165189024
 ```
+
+
+If I add some `printf`s, I can see it's coming from `rb_gc_mark(node->owner)`.  _Sometimes_ `node->owner` prints out `0`, other times it's a big long number (a VALUE address.)
+
+```
+VALUE: MARK 2
+       ✓
+OWNER: MARK 193314368
+       == 0 false
+/Users/rmosolgo/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/rake-11.1.1/lib/rake/rake_test_loader.rb: [BUG] Segmentation fault at 0x00000000000000
+```
+
+(expected a `✓`)
